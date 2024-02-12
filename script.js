@@ -10,6 +10,8 @@ const copy_btn = document.querySelector(".copy-letters");
 
 const menu = document.querySelector(".letter-menu");
 
+const letter_controls = document.querySelector(".controls-container");
+
 const letter_container = document.querySelector(".letter-container");
 
 document.body.onclick = bodyClick;
@@ -20,9 +22,9 @@ vowel_btn.onclick = vowel;
 consonant_btn.onclick = consonant;
 random_btn.onclick = randomLetter;
 
-shuffle_btn.onclick = shuffle;
-clear_btn.onclick = clear;
-copy_btn.onclick = copy;
+// shuffle_btn.onclick = shuffle;
+// clear_btn.onclick = clear;
+// copy_btn.onclick = copy;
 
 // 🔣 Variable definitions
 
@@ -42,7 +44,7 @@ function addLetter(letter, classname) {
 	elem.classList.add("letter");
 	elem.textContent = letter;
 
-	letter_container.appendChild(elem);
+	letter_container.insertBefore(elem, letter_controls);
 
 	elem.oncontextmenu = letterMenu;
 	elem.onclick = deleteLetter;

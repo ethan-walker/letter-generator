@@ -1,5 +1,5 @@
 :root {
-	--grey: #989da4;
+	--grey: #adb2b8;
 }
 * {
 	padding: 0;
@@ -147,10 +147,18 @@ button:has(.keybinding) {
 	font-size: .8em;
 	border: 1px solid white;
 	border-radius: 5px;
-	height: 1.4em;
-	min-width: 1.2em;
+	height: 1.5em;
+	min-width: 1.5em;
 	width: max-content;
 	display: grid;
 	place-content: center;
 	padding-inline: .5em;
+	opacity: .8;
+}
+.control-container {
+	display: grid;
+}
+.control {
+	display: grid;
+	place-content: center;
 }
