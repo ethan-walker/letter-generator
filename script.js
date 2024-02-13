@@ -39,6 +39,9 @@ document.onkeydown = (e) => {
 	if (e.key === "c") {
 		consonant();
 	}
+	if (e.key === "r") {
+		randomLetter();
+	}
 }
 
 function addLetter(letter, classname) {

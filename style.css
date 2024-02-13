@@ -22,8 +22,19 @@ html, body {
 }
 body {
 	display: grid;
-	align-content: center;
+	grid-template-rows: 10vh auto;
+	align-items: center;
 	font-family: var(--font-body);
+}
+header {
+	height: 100%;
+	border-bottom: 1px solid rgba(0 0 0 / .1);
+	font-family: var(--font-special);
+	font-weight: 800;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 1.5rem;
 }
 button {
 	cursor: pointer;
