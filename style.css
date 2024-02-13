@@ -8,6 +8,9 @@
 	--font-mono: "Space Mono", monospace;
 	--font-body: "Figtree", Arial, Helvetica, sans-serif;
 	--font-special: "Bricolage Grotesque", serif;
+	--color-tile: #ffd780;
+	--color-tile-shadow: #e19a6b;
+	--color-tile-text: #ffd780;
 }
 input, button {
 	font-family: inherit;
@@ -75,9 +78,10 @@ button:active {
 	transition: 100ms;
 
 	border-radius: 5px;
-	box-shadow: 0 .5rem 0 0 #e19a6b;
+	--tile-shadow: 0 .5rem 0 0 var(--color-tile-shadow);
+	box-shadow: var(--tile-shadow);
 	border: 2px solid #e19a6b;
-	background-color: #ffd780;
+	background-color: var(--color-tile);
 }
 @keyframes letter-pop {
 	from {
@@ -86,11 +90,11 @@ button:active {
 	}
 }
 .letter:hover {
-	rotate: 2deg;
+	rotate: 0deg !important;
 	scale: 1.1;
 	cursor: pointer;
 	box-shadow:
-		0 .5rem 0 0 #e19a6b,
+		var(--tile-shadow),
 		0 .5rem 2rem -0.25rem rgba(0 0 0 / .2);
 }
 .button-row {
@@ -107,34 +111,6 @@ button:active {
 .button-container {
 	width: clamp(0px, 30rem, calc(100% - 2rem));
 	margin-inline: auto;
-}
-.letter-menu {
-	list-style-type: none;
-	border: 1px solid rgba(0 0 0 / .3);
-	border-radius: 5px;
-	padding: .5em;
-	display: inline-grid;
-	gap: .5em;
-	position: absolute;
-	background-color: white;
-	transition: 100ms;
-	
-	@starting-style {
-		opacity: 0;
-	}
-}
-.letter-menu:not(.visible) {
-	display: none;
-	opacity: 0;
-	user-select: none;
-}
-.letter-menu.visible {
-	opacity: 1;
-}
-.letter-menu > *:has(i) {
-	display: grid;
-	grid-template-columns: 1em auto;
-	gap: .5em;
 }
 button:has(.keybinding) {
 	display: grid;
@@ -155,10 +131,13 @@ button:has(.keybinding) {
 	padding-inline: .5em;
 	opacity: .8;
 }
-.control-container {
+.icon-button {
+	padding: 0;
+	flex-grow: 0;
+	aspect-ratio: 1;
 	display: grid;
-}
-.control {
-	display: grid;
+	grid-template-columns: 1fr;
 	place-content: center;
+	font-size: 1.2em;
+	height: 2em;
 }

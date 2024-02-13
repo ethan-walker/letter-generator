@@ -8,13 +8,7 @@ const shuffle_btn = document.querySelector(".shuffle-letters");
 const clear_btn = document.querySelector(".clear-letters");
 const copy_btn = document.querySelector(".copy-letters");
 
-const menu = document.querySelector(".letter-menu");
-
-const letter_controls = document.querySelector(".controls-container");
-
 const letter_container = document.querySelector(".letter-container");
-
-document.body.onclick = bodyClick;
 
 // 🖱️ Onclick functions
 
@@ -38,36 +32,28 @@ let weighted = true;
 function randomItem(list) {
 	return list[Math.floor(Math.random() * list.length)];
 }
+document.onkeydown = (e) => {
+	if (e.key === "v") {
+		vowel();
+	}
+	if (e.key === "c") {
+		consonant();
+	}
+}
 
 function addLetter(letter, classname) {
+	if (letter_container.childElementCount === 10) return;
 	const elem = document.createElement("div");
 	elem.classList.add("letter");
 	elem.textContent = letter;
 
-	letter_container.insertBefore(elem, letter_controls);
-
-	elem.oncontextmenu = letterMenu;
+	letter_container.appendChild(elem);
+	let rotation = -5 + (Math.random() * 10);
+	elem.style.rotate = `${rotation}deg`
 	elem.onclick = deleteLetter;
-}
-
-function letterMenu(e) {
-	e.preventDefault();
-	
-	menu.style.left = e.clientX + "px";
-	menu.style.top = e.clientY + "px";
-	console.log
-	console.log("Hey!");
-	menu.classList.add("visible");
-	
-	console.log("Hey!");
 }
 function deleteLetter() {
 	//
-}
-function bodyClick(e) {
-	if (e.currentTarget !== menu && menu.classList.contains("visible")) {
-		menu.classList.remove("visible");
-	}
 }
 
 function vowel() {
