@@ -1,5 +1,10 @@
 :root {
 	--grey: #adb2b8;
+	--color-cancel: #d32222;
+	--blue: #3c75fb;
+	--color-vowel: #2db448;
+	--color-consonant: #e735f3;
+	--color-random: #639de9;
 }
 * {
 	padding: 0;
@@ -39,7 +44,7 @@ header {
 button {
 	cursor: pointer;
 	padding: .5em 1.2em;
-	background-color: #3c75fb;
+	background-color: var(--blue);
 	color: white;
 	position: relative;
 	transition: 200ms;
@@ -57,12 +62,38 @@ button:hover {
 button:active {
 	scale: .95;
 }
+.letter-display {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 4em;
+}
+.letter-container:empty + .letter-controls > * {
+	display: none;
+}
+.letter-controls {
+	width: 0;
+	translate: 1em 0;
+	transition: 100ms;
+	height: 100%;
+	display: grid;
+	gap: .5em;
+}
+.letter-controls > * {
+	animation: letter-pop 100ms cubic-bezier(.59,.27,.24,1.59);
+	background-color: var(--grey);
+}
+.letter-controls > *:hover {
+	background-color: var(--blue);
+}
+.clear-letters:hover {
+	background-color: var(--color-cancel);
+}
 .letter-container {
 	--letter-size: 5rem;
-	height: var(--letter-size);
-	margin-block: 2em;
-	margin-bottom: 4em;
-	display: flex;
+	--shadow-size: .5rem;
+	height: calc(var(--letter-size) + var(--shadow-size));
+	display: inline-flex;
 	justify-content: center;
 	gap: .7em;
 	border-radius: 5px;
@@ -75,6 +106,7 @@ button:active {
 	border-radius: 5px;
 }
 .letter {
+	--tile-shadow: 0 var(--shadow-size) 0 0 var(--color-tile-shadow);
 	display: grid;
 	place-content: center;
 	font-family: var(--font-special);
@@ -89,10 +121,42 @@ button:active {
 	transition: 100ms;
 
 	border-radius: 5px;
-	--tile-shadow: 0 .5rem 0 0 var(--color-tile-shadow);
 	box-shadow: var(--tile-shadow);
 	border: 2px solid #e19a6b;
 	background-color: var(--color-tile);
+}
+.letter::before {
+	--size: .6rem;
+	content: "";
+	height: calc(1.2 * var(--size));
+	width: calc(1.2 * var(--size));
+	border-radius: 50vh;
+	position: absolute;
+	inset: .1rem;
+	font-size: var(--size);
+	color: transparent;
+	display: grid;
+	overflow: hidden;
+	font-weight: 300;
+}
+.vowel::before {
+	background-color: var(--color-vowel);
+	content: "vowel";
+}
+.letter:hover::before {
+	color: white;
+	width: 100%;
+	max-width: fit-content;
+	transition: width 300ms, color 100ms;
+	padding-inline: .3em;
+}
+.consonant::before {
+	background-color: var(--color-consonant);
+	content: "consonant";
+}
+.random::before {
+	background-color: var(--color-random);
+	content: "random";
 }
 @keyframes letter-pop {
 	from {

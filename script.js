@@ -7,6 +7,7 @@ const random_btn = document.querySelector(".add-random");
 const shuffle_btn = document.querySelector(".shuffle-letters");
 const clear_btn = document.querySelector(".clear-letters");
 const copy_btn = document.querySelector(".copy-letters");
+const replace_btn = document.querySelector(".replace-letters");
 
 const letter_container = document.querySelector(".letter-container");
 
@@ -15,9 +16,10 @@ const letter_container = document.querySelector(".letter-container");
 vowel_btn.onclick = vowel;
 consonant_btn.onclick = consonant;
 random_btn.onclick = randomLetter;
+replace_btn.onclick = replaceLetters;
 
 // shuffle_btn.onclick = shuffle;
-// clear_btn.onclick = clear;
+clear_btn.onclick = clear;
 // copy_btn.onclick = copy;
 
 // 🔣 Variable definitions
@@ -47,7 +49,8 @@ document.onkeydown = (e) => {
 function addLetter(letter, classname) {
 	if (letter_container.childElementCount === 10) return;
 	const elem = document.createElement("div");
-	elem.classList.add("letter");
+
+	elem.classList.add("letter", classname);
 	elem.textContent = letter;
 
 	letter_container.appendChild(elem);
@@ -59,20 +62,20 @@ function deleteLetter() {
 	//
 }
 
-function vowel() {
+function vowel(e, classname = "vowel") {
 	const letter = randomItem(vowels);
-	addLetter(letter);
+	addLetter(letter, classname);
 }
 
-function consonant() {
+function consonant(e, classname = "consonant") {
 	const letter = randomItem(consonants);
-	addLetter(letter);
+	addLetter(letter, classname);
 }
 
 function randomLetter() {
 	if (weighted) {
-		if(Math.random() < 0.5) vowel();
-		else consonant();
+		if(Math.random() < 0.5) vowel("random");
+		else consonant("random");
 		
 		return;
 	}
@@ -81,8 +84,23 @@ function randomLetter() {
 		addLetter(randomItem(alphabet));
 	}
 }
-function shuffle() {
-	//
+function replaceLetters() {
+	let letter_types = [];
+	for (const letter of letter_container.children) {
+		letter_types.push(letter.classList[1]);
+	}
+	clear();
+	for (const letter_type of letter_types) {
+		if(letter_type === "vowel") {
+			vowel();
+		}
+		else if (letter_type === "consonant") {
+			consonant();
+		}
+		else {
+			randomLetter();
+		}
+	}
 }
 function clear() {
 	letter_container.innerHTML = "";
