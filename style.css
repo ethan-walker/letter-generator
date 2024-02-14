@@ -138,6 +138,8 @@ button:active {
 	display: grid;
 	overflow: hidden;
 	font-weight: 300;
+	transition: width 100ms, color 100ms;
+	max-width: fit-content;
 }
 .vowel::before {
 	background-color: var(--color-vowel);
@@ -146,9 +148,8 @@ button:active {
 .letter:hover::before {
 	color: white;
 	width: 100%;
-	max-width: fit-content;
-	transition: width 300ms, color 100ms;
 	padding-inline: .3em;
+	transition: width 300ms, color 100ms;
 }
 .consonant::before {
 	background-color: var(--color-consonant);

@@ -74,8 +74,8 @@ function consonant(e, classname = "consonant") {
 
 function randomLetter() {
 	if (weighted) {
-		if(Math.random() < 0.5) vowel("random");
-		else consonant("random");
+		if(Math.random() < 0.5) vowel("#","random");
+		else consonant("#","random");
 		
 		return;
 	}
