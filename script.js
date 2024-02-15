@@ -30,11 +30,19 @@ const consonants = ["b", "c", "d", "f", "g", "h", "j", "k", "l", "m", "n", "p", 
 let weighted = true;
 
 // 🚦 Functions
-
+function loadLetters() {
+	let storage = localStorage.letters || "[]";
+	storage = JSON.parse(storage);
+	storage.forEach(letter => {
+		addLetter(letter[0], letter[1]);
+	})
+}
+loadLetters();
 function randomItem(list) {
 	return list[Math.floor(Math.random() * list.length)];
 }
 document.onkeydown = (e) => {
+	if (e.ctrlKey || e.metaKey) return;
 	if (e.key === "v") {
 		vowel();
 	}
@@ -56,10 +64,7 @@ function addLetter(letter, classname) {
 	letter_container.appendChild(elem);
 	let rotation = -5 + (Math.random() * 10);
 	elem.style.rotate = `${rotation}deg`
-	elem.onclick = deleteLetter;
-}
-function deleteLetter() {
-	//
+	saveStorage();
 }
 
 function vowel(e, classname = "vowel") {
@@ -104,6 +109,7 @@ function replaceLetters() {
 }
 function clear() {
 	letter_container.innerHTML = "";
+	saveStorage();
 }
 function copy() {
 	let letters = "";
@@ -111,4 +117,15 @@ function copy() {
 		letters += letter.textContent;
 	}
 	console.log(letters);
+}
+
+function saveStorage() {
+	let storage = [];
+	
+	for (const letter of letter_container.children) {
+		let text = letter.textContent;
+		let data = letter.classList[1];
+		storage.push([text, data]);
+	}
+	localStorage.letters = JSON.stringify(storage);
 }
